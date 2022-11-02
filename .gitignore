@@ -234,3 +234,7 @@ $RECYCLE.BIN/
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node,yarn,rust,macos,windows
+
+# Added by cargo
+
+/target
