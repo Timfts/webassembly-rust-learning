@@ -1,0 +1,24 @@
+{
+  "name": "webassembly-rust-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "serve": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timfts/webassembly-rust-learning.git"
+  },
+  "author": "Tim Fontes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Timfts/webassembly-rust-learning/issues"
+  },
+  "homepage": "https://github.com/Timfts/webassembly-rust-learning#readme",
+  "devDependencies": {
+    "vite": "^3.2.2"
+  }
+}

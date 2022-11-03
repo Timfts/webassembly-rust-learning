@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "checkJs": true,
+      "strict": true,
+      "baseUrl": "./src",
+      "esModuleInterop": true  ,
+      "outDir": "dist",
+      "noImplicitAny": false
+    }
+  }
