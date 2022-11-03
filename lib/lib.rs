@@ -11,5 +11,7 @@ pub fn plus(a: f32, b:f32) -> f32{
 
 #[wasm_bindgen]
 pub fn minus(a: f32, b:f32) -> f32 {
-    a - b
+    let _potato = 25;
+    
+    a + b
 }

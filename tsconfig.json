@@ -6,6 +6,7 @@
       "baseUrl": "./www",
       "esModuleInterop": true  ,
       "outDir": "dist",
-      "noImplicitAny": false
+      "noImplicitAny": false,
+      "lib": ["ES2015", "DOM"]
     }
   }
