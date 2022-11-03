@@ -3,7 +3,7 @@
       "module": "commonjs",
       "checkJs": true,
       "strict": true,
-      "baseUrl": "./src",
+      "baseUrl": "./www",
       "esModuleInterop": true  ,
       "outDir": "dist",
       "noImplicitAny": false

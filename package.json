@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clear-wasm-dist": "rm -rf www/wasm",
+    "remove-unused-generated-files": "rm www/wasm/.gitignore & rm www/wasm/package.json & rm www/wasm/README.md",
+    "compile-rust": "wasm-pack build --target web --out-dir www/wasm --out-name index",
+    "build-wasm":"yarn compile-rust && yarn remove-unused-generated-files",
+    "watch-rust":"nodemon --watch lib -e rs --exec yarn build-wasm",
     "dev": "vite",
+    "dev:wasm": "yarn watch-rust & yarn dev",
     "build": "vite build --emptyOutDir",
     "serve": "vite preview"
   },
