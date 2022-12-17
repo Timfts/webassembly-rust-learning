@@ -1,31 +1,26 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-* @param {string} hehes
 */
-export function do_something(hehes: string): void;
+export class World {
+  free(): void;
 /**
-* @param {number} a
-* @param {number} b
+* @returns {World}
+*/
+  static new(): World;
+/**
 * @returns {number}
 */
-export function plus(a: number, b: number): number;
-/**
-* @param {number} a
-* @param {number} b
-* @returns {number}
-*/
-export function minus(a: number, b: number): number;
+  width(): number;
+}
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly do_something: (a: number, b: number) => void;
-  readonly plus: (a: number, b: number) => number;
-  readonly minus: (a: number, b: number) => number;
-  readonly __wbindgen_malloc: (a: number) => number;
-  readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
+  readonly __wbg_world_free: (a: number) => void;
+  readonly world_new: () => number;
+  readonly world_width: (a: number) => number;
 }
 
 export type SyncInitInput = BufferSource | WebAssembly.Module;

@@ -1,12 +1,15 @@
 import "./misc/base-tutorial";
 
-import init, {plus, minus, do_something} from "../wasm";
+import init, {World} from "../wasm";
 
 async function start() {
   await init();
-  console.log(plus(3, 7.5));
-  console.log(minus(5, 3));
-  /* do_something("lala") */
+
+  const myWorld = World.new()
+  const canvas = document.getElementById("game-canvas") as HTMLCanvasElement
+  const ctx = canvas.getContext("2d")
+  
+  console.log(myWorld.width())
 }
 
 start();

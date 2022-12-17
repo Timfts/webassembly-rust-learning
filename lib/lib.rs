@@ -1,32 +1,19 @@
-
 use wasm_bindgen::prelude::*;
-
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-
 #[wasm_bindgen]
-pub fn do_something(hehes: &str){
-    alert(hehes);
+pub struct World {
+    width: usize,
 }
-
 #[wasm_bindgen]
-pub fn plus(a: f32, b:f32) -> f32{
-    print!("lala");
-    a + b
-}
+impl World {
+    pub fn new() -> World {
+        return World { width: 8 };
+    }
 
-
-#[wasm_bindgen]
-pub fn minus(a: f32, b:f32) -> f32 {
-    let _potato = 25;
-    
-    a - b
-}
-
-
-#[wasm_bindgen]
-extern {
-    pub fn alert(s: &str);
+    pub fn width(&self) -> usize {
+        self.width
+    }
 }
