@@ -17,6 +17,10 @@ function getUint8Memory0() {
 function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
+
+function isLikeNone(x) {
+    return x === undefined || x === null;
+}
 /**
 */
 export class World {
@@ -40,10 +44,12 @@ export class World {
         wasm.__wbg_world_free(ptr);
     }
     /**
+    * @param {number | undefined} width
+    * @param {number | undefined} snake_idx
     * @returns {World}
     */
-    static new() {
-        const ret = wasm.world_new();
+    static new(width, snake_idx) {
+        const ret = wasm.world_new(!isLikeNone(width), isLikeNone(width) ? 0 : width, !isLikeNone(snake_idx), isLikeNone(snake_idx) ? 0 : snake_idx);
         return World.__wrap(ret);
     }
     /**
@@ -52,6 +58,18 @@ export class World {
     width() {
         const ret = wasm.world_width(this.ptr);
         return ret >>> 0;
+    }
+    /**
+    * @returns {number}
+    */
+    snake_head_index() {
+        const ret = wasm.world_snake_head_index(this.ptr);
+        return ret >>> 0;
+    }
+    /**
+    */
+    update() {
+        wasm.world_update(this.ptr);
     }
 }
 
