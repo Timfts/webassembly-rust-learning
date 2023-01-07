@@ -1,4 +1,4 @@
-import init, { World } from "../wasm";
+import init, { World, Direction } from "../wasm";
 
 export default async function app() {
   await init();
@@ -15,6 +15,23 @@ export default async function app() {
 
   canvas.height = worldWidth * CELL_SIZE;
   canvas.width = worldWidth * CELL_SIZE;
+
+  document.addEventListener("keydown", (e) => {
+    switch (e.code) {
+      case "ArrowUp":
+        myWorld.change_snake_direction(Direction.Up);
+        break;
+      case "ArrowDown":
+        myWorld.change_snake_direction(Direction.Down);
+        break;
+      case "ArrowLeft":
+        myWorld.change_snake_direction(Direction.Left);
+        break;
+      case "ArrowRight":
+        myWorld.change_snake_direction(Direction.Right);
+        break;
+    }
+  });
 
   function drawWorld() {
     ctx?.beginPath();

@@ -23,6 +23,9 @@ function isLikeNone(x) {
 }
 /**
 */
+export const Direction = Object.freeze({ Up:0,"0":"Up",Right:1,"1":"Right",Down:2,"2":"Down",Left:3,"3":"Left", });
+/**
+*/
 export class World {
 
     static __wrap(ptr) {
@@ -65,6 +68,12 @@ export class World {
     snake_head_index() {
         const ret = wasm.world_snake_head_index(this.ptr);
         return ret >>> 0;
+    }
+    /**
+    * @param {number} direction
+    */
+    change_snake_direction(direction) {
+        wasm.world_change_snake_direction(this.ptr, direction);
     }
     /**
     */

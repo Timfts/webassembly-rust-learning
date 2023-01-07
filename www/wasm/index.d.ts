@@ -2,6 +2,14 @@
 /* eslint-disable */
 /**
 */
+export enum Direction {
+  Up,
+  Right,
+  Down,
+  Left,
+}
+/**
+*/
 export class World {
   free(): void;
 /**
@@ -19,6 +27,10 @@ export class World {
 */
   snake_head_index(): number;
 /**
+* @param {number} direction
+*/
+  change_snake_direction(direction: number): void;
+/**
 */
   update(): void;
 }
@@ -31,6 +43,7 @@ export interface InitOutput {
   readonly world_new: (a: number, b: number, c: number, d: number) => number;
   readonly world_width: (a: number) => number;
   readonly world_snake_head_index: (a: number) => number;
+  readonly world_change_snake_direction: (a: number, b: number) => void;
   readonly world_update: (a: number) => void;
 }
 
