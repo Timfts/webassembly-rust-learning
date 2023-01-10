@@ -60,7 +60,6 @@ impl World {
         let first_cell_index = first_cell.0;
         return first_cell_index;
     }
-    
 
     pub fn change_snake_direction(&mut self, direction: Direction) {
         self.snake.direction = direction;
@@ -71,7 +70,7 @@ impl World {
     //     self.snake.body
     // }
 
-    pub fn snake_cells(&self) -> *const SnakeCell{
+    pub fn snake_cells(&self) -> *const SnakeCell {
         self.snake.body.as_ptr()
     }
 
@@ -80,29 +79,19 @@ impl World {
     }
 
     pub fn update(&mut self) {
+        let next_cell = self.gen_next_snake_cell();
+        self.snake.body[0] = next_cell;
+    }
+
+    fn gen_next_snake_cell(&self) -> SnakeCell {
         let snake_idx = self.snake_head_index();
+        let row = snake_idx / self.width;
 
-        let (row, col) = self.index_to_cell(snake_idx);
-        let (row, col) = match self.snake.direction {
-            Direction::Right => (row, (col + 1) % self.width),
-            Direction::Left => (row, (col - 1) % self.width),
-            Direction::Up => ((row - 1) % self.width, col),
-            Direction::Down => ((row + 1) % self.width, col),
+        return match self.snake.direction {
+            Direction::Right => SnakeCell((row * self.width) + (snake_idx + 1) % self.width),
+            Direction::Left => SnakeCell((row * self.width) + (snake_idx - 1) % self.width),
+            Direction::Up => SnakeCell((snake_idx - self.width) % self.size),
+            Direction::Down => SnakeCell((snake_idx + self.width) % self.size),
         };
-
-        let next_idx = self.cell_to_index(row, col);
-        self.set_snake_head(next_idx);
-    }
-
-    fn set_snake_head(&mut self, idx: usize) {
-        self.snake.body[0].0 = idx;
-    }
-
-    fn cell_to_index(&self, row: usize, col: usize) -> usize {
-        (row * self.width) + col
-    }
-
-    fn index_to_cell(&self, idx: usize) -> (usize, usize) {
-        (idx / self.width, idx % self.width)
     }
 }

@@ -10,7 +10,7 @@ export default async function app() {
   const myWorld = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
   const worldWidth = myWorld.width();
 
-  const snakeCellPtr = myWorld.snake_cells();
+  /*   const snakeCellPtr = myWorld.snake_cells();
   const snakeLength = myWorld.snake_length();
   const snakeCells = new Uint32Array(
     wasm.memory.buffer,
@@ -18,7 +18,7 @@ export default async function app() {
     snakeLength
   );
 
-  console.log(snakeCells);
+  console.log(snakeCells); */
 
   const canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d");
@@ -59,12 +59,21 @@ export default async function app() {
   }
 
   function drawSnake() {
-    const snakeIdx = myWorld.snake_head_index();
-    const col = snakeIdx % worldWidth;
-    const row = Math.floor(snakeIdx / worldWidth);
+    const snakeCells = new Uint32Array(
+      wasm.memory.buffer,
+      myWorld.snake_cells(),
+      myWorld.snake_length()
+    );
 
-    ctx?.beginPath();
-    ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    snakeCells.forEach((cellIdx, i) => {
+      const col = cellIdx % worldWidth;
+      const row = Math.floor(cellIdx / worldWidth);
+
+
+      ctx!.fillStyle = i === 0 ? "#7878db" : "#000000"
+      ctx?.beginPath();
+      ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    });
     ctx?.stroke();
   }
 

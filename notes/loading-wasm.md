@@ -1,10 +1,7 @@
-// wasm has a text format and a binay format, coverter:
-// https://webassembly.github.io/wabt/demo/wat2wasm/
+wasm has a text format and a binay format, coverter:
+https://webassembly.github.io/wabt/demo/wat2wasm/
 
-/*
-
-Sum two numbers (webAssembly text format)
- 
+```
 (module
   (func $sum (param $a i32) (param $b i32) (result i32)
   	local.get $a
@@ -14,10 +11,11 @@ Sum two numbers (webAssembly text format)
   (export "sum" (func $sum))
 )
 
- */
+```
 
-// ------ create the same web assembly code above but as byte array
+create the same web assembly code above but as byte array:
 
+```ts
 const hexByteArray = [
   0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x07, 0x01, 0x60, 0x02,
   0x7f, 0x7f, 0x01, 0x7f, 0x03, 0x02, 0x01, 0x00, 0x07, 0x07, 0x01, 0x03, 0x73,
@@ -28,9 +26,11 @@ const hexByteArray = [
 ];
 const decimalByteArray = hexByteArray.map((hexItem) => parseInt(`${hexItem}`));
 const byteArray = new Int8Array(hexByteArray);
+```
 
-// -------- running bytecode in webassembly
+running the bytecode in webassembly:
 
+```ts
 async function init() {
   const wasm = await WebAssembly.instantiate(byteArray.buffer);
   const sumFunction = wasm.instance.exports.sum as any;
@@ -39,10 +39,12 @@ async function init() {
 }
 
 init();
+```
 
-// --------- importing from file
+### Importing from file
 
-/* async function init() {
+```ts
+async function init() {
   const file = await fetch("operation.wasm");
   const binArray = await file.arrayBuffer();
   const wasm = await WebAssembly.instantiate(binArray);
@@ -50,6 +52,5 @@ init();
   console.log(sumFunction(10, 10));
 }
 
-init(); */
-
-/* debugger; */
+init();
+```
