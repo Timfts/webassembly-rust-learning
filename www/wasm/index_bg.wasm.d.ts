@@ -6,4 +6,6 @@ export function world_new(a: number, b: number, c: number, d: number): number;
 export function world_width(a: number): number;
 export function world_snake_head_index(a: number): number;
 export function world_change_snake_direction(a: number, b: number): void;
+export function world_snake_cells(a: number): number;
+export function world_snake_length(a: number): number;
 export function world_update(a: number): void;

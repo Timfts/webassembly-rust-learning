@@ -1,7 +1,7 @@
 import init, { World, Direction } from "../wasm";
 
 export default async function app() {
-  await init();
+  const wasm = await init();
 
   const CELL_SIZE = 50;
   const WORLD_WIDTH = 8;
@@ -9,6 +9,16 @@ export default async function app() {
 
   const myWorld = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
   const worldWidth = myWorld.width();
+
+  const snakeCellPtr = myWorld.snake_cells();
+  const snakeLength = myWorld.snake_length();
+  const snakeCells = new Uint32Array(
+    wasm.memory.buffer,
+    snakeCellPtr,
+    snakeLength
+  );
+
+  console.log(snakeCells);
 
   const canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d");

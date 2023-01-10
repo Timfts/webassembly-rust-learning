@@ -76,6 +76,20 @@ export class World {
         wasm.world_change_snake_direction(this.ptr, direction);
     }
     /**
+    * @returns {number}
+    */
+    snake_cells() {
+        const ret = wasm.world_snake_cells(this.ptr);
+        return ret;
+    }
+    /**
+    * @returns {number}
+    */
+    snake_length() {
+        const ret = wasm.world_snake_length(this.ptr);
+        return ret >>> 0;
+    }
+    /**
     */
     update() {
         wasm.world_update(this.ptr);
