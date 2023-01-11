@@ -83,7 +83,7 @@ export default async function app() {
   }
 
   function setUpdate() {
-    const framesPerSecond = 3;
+    const framesPerSecond = 10;
     setTimeout(() => {
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
       myWorld.update();
