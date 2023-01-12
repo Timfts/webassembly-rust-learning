@@ -1,37 +1,12 @@
 use wasm_bindgen::prelude::*;
+mod snake;
+
+use snake::{Snake, SnakeCell, Direction};
+
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[wasm_bindgen]
-#[derive(PartialEq)]
-pub enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-#[derive(Clone, Copy)]
-pub struct SnakeCell(usize);
-
-struct Snake {
-    body: Vec<SnakeCell>,
-    direction: Direction,
-}
-
-impl Snake {
-    fn new(spawn_index: usize, size: usize) -> Snake {
-        let body: Vec<SnakeCell> = (0..size)
-            .map(|size| SnakeCell(spawn_index - size))
-            .collect();
-
-        Snake {
-            body,
-            direction: Direction::Right,
-        }
-    }
-}
 
 #[wasm_bindgen]
 pub struct World {
