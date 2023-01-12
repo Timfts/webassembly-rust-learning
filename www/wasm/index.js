@@ -1,3 +1,4 @@
+import { random } from './snippets/snake-core-c500c7cb77b8028e/www/externals.js';
 
 let wasm;
 
@@ -60,6 +61,13 @@ export class World {
     */
     width() {
         const ret = wasm.world_width(this.ptr);
+        return ret >>> 0;
+    }
+    /**
+    * @returns {number}
+    */
+    reward_cell() {
+        const ret = wasm.world_reward_cell(this.ptr);
         return ret >>> 0;
     }
     /**
@@ -130,6 +138,10 @@ async function load(module, imports) {
 function getImports() {
     const imports = {};
     imports.wbg = {};
+    imports.wbg.__wbg_random_06ff7eb101bdbf39 = function(arg0) {
+        const ret = random(arg0 >>> 0);
+        return ret;
+    };
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };

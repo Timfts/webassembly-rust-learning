@@ -1,11 +1,12 @@
 import init, { World, Direction } from "../wasm";
+import { random } from "../externals";
 
 export default async function app() {
   const wasm = await init();
 
   const CELL_SIZE = 50;
   const WORLD_WIDTH = 8;
-  const SNAKE_SPAWN_IDX = Date.now() % (WORLD_WIDTH * WORLD_WIDTH);
+  const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
 
   const myWorld = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
   const worldWidth = myWorld.width();
@@ -58,6 +59,16 @@ export default async function app() {
     ctx?.stroke();
   }
 
+  function drawReward() {
+    const idx = myWorld.reward_cell();
+    const col = idx % worldWidth;
+    const row = Math.floor(idx / worldWidth);
+    ctx?.beginPath();
+    ctx!.fillStyle = "#FF0000";
+    ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    ctx?.stroke();
+  }
+
   function drawSnake() {
     const snakeCells = new Uint32Array(
       wasm.memory.buffer,
@@ -69,8 +80,7 @@ export default async function app() {
       const col = cellIdx % worldWidth;
       const row = Math.floor(cellIdx / worldWidth);
 
-
-      ctx!.fillStyle = i === 0 ? "#7878db" : "#000000"
+      ctx!.fillStyle = i === 0 ? "#7878db" : "#000000";
       ctx?.beginPath();
       ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     });
@@ -80,6 +90,7 @@ export default async function app() {
   function paint() {
     drawWorld();
     drawSnake();
+    drawReward();
   }
 
   function setUpdate() {

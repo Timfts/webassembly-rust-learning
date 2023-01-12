@@ -1,12 +1,17 @@
 use wasm_bindgen::prelude::*;
 mod snake;
 
-use snake::{Snake, SnakeCell, Direction};
-
+use snake::{Direction, Snake, SnakeCell};
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+#[wasm_bindgen(module = "/www/externals.js")]
+extern "C" {
+    fn log_something();
+    fn now() -> usize;
+    fn random(max: usize) -> usize;
+}
 
 #[wasm_bindgen]
 pub struct World {
@@ -14,23 +19,31 @@ pub struct World {
     snake: Snake,
     size: usize,
     next_cell: Option<SnakeCell>,
+    reward_cell: usize,
 }
 #[wasm_bindgen]
 impl World {
     pub fn new(width: Option<usize>, snake_idx: Option<usize>) -> World {
         let used_width = width.unwrap_or(8);
         let used_snake_idx = snake_idx.unwrap_or(0);
+        let size = used_width * used_width;
+        let reward_cell = random(size);
 
         return World {
             width: used_width,
             snake: Snake::new(used_snake_idx, 3),
-            size: used_width * used_width,
+            size,
             next_cell: None,
+            reward_cell,
         };
     }
 
     pub fn width(&self) -> usize {
         self.width
+    }
+
+    pub fn reward_cell(&self) -> usize {
+        self.reward_cell
     }
 
     pub fn snake_head_index(&self) -> usize {
