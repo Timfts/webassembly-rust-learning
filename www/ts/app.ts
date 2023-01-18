@@ -4,8 +4,8 @@ import { random } from "../externals";
 export default async function app() {
   const wasm = await init();
 
-  const CELL_SIZE = 50;
-  const WORLD_WIDTH = 8;
+  const CELL_SIZE = 20;
+  const WORLD_WIDTH = 4;
   const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
 
   const myWorld = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
@@ -67,6 +67,10 @@ export default async function app() {
     ctx!.fillStyle = "#FF0000";
     ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     ctx?.stroke();
+
+    if (idx === 1000) {
+      alert("you won");
+    }
   }
 
   function drawSnake() {

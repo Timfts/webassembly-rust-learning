@@ -7,3 +7,6 @@ export const now = Date.now;
 export function random(max) {
   return Math.floor(Math.random() * max);
 }
+
+
+// implement log function

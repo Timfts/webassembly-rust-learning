@@ -26,16 +26,28 @@ impl World {
     pub fn new(width: Option<usize>, snake_idx: Option<usize>) -> World {
         let used_width = width.unwrap_or(8);
         let used_snake_idx = snake_idx.unwrap_or(0);
+        let snake = Snake::new(used_snake_idx, 3);
         let size = used_width * used_width;
-        let reward_cell = random(size);
 
         return World {
             width: used_width,
-            snake: Snake::new(used_snake_idx, 3),
+            reward_cell: World::gen_reward_cell(size, &snake.body),
+            snake,
             size,
             next_cell: None,
-            reward_cell,
         };
+    }
+
+    fn gen_reward_cell(max: usize, snake_body: &Vec<SnakeCell>) -> usize {
+        let mut reward_cell;
+
+        loop {
+            reward_cell = random(max);
+            if !snake_body.contains(&SnakeCell(reward_cell)) {
+                break;
+            }
+        }
+        return reward_cell;
     }
 
     pub fn width(&self) -> usize {
@@ -93,6 +105,15 @@ impl World {
 
         for i in 1..len {
             self.snake.body[i] = SnakeCell(temp[i - 1].0)
+        }
+
+        if self.reward_cell == self.snake_head_index() {
+            if (self.snake_length() < self.size) {
+                self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body)
+            } else {
+                self.reward_cell = self.size + 10
+            }
+            self.snake.body.push(SnakeCell(self.snake.body[1].0));
         }
     }
 
