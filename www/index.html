@@ -14,10 +14,33 @@
         justify-content: center;
         flex-direction: column;
       }
+
+      .action-box {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .action-box__status {
+        display: flex;
+      }
+
+      .action-box__status-title {
+        margin-right: 10px;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <div class="container">
+      <div class="action-box">
+        <div class="action-box__status">
+          <p class="action-box__status-title">Status</p>
+          <p class="action-box__status-value">None</p>
+        </div>
+        <button class="start-btn">Start</button>
+      </div>
       <canvas id="game-canvas"></canvas>
     </div>
     <script type="module" src="./ts/index.ts"></script>

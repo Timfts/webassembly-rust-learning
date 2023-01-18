@@ -10,6 +10,13 @@ export enum Direction {
 }
 /**
 */
+export enum GameStatus {
+  Won,
+  Lost,
+  Played,
+}
+/**
+*/
 export class World {
   free(): void;
 /**
@@ -45,6 +52,17 @@ export class World {
 /**
 */
   update(): void;
+/**
+*/
+  start_game(): void;
+/**
+* @returns {number | undefined}
+*/
+  game_status(): number | undefined;
+/**
+* @returns {string}
+*/
+  game_status_text(): string;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -60,6 +78,11 @@ export interface InitOutput {
   readonly world_snake_cells: (a: number) => number;
   readonly world_snake_length: (a: number) => number;
   readonly world_update: (a: number) => void;
+  readonly world_start_game: (a: number) => void;
+  readonly world_game_status: (a: number) => number;
+  readonly world_game_status_text: (a: number, b: number) => void;
+  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
+  readonly __wbindgen_free: (a: number, b: number) => void;
 }
 
 export type SyncInitInput = BufferSource | WebAssembly.Module;

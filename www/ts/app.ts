@@ -5,7 +5,7 @@ export default async function app() {
   const wasm = await init();
 
   const CELL_SIZE = 20;
-  const WORLD_WIDTH = 4;
+  const WORLD_WIDTH = 10;
   const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
 
   const myWorld = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
@@ -21,6 +21,18 @@ export default async function app() {
 
   console.log(snakeCells); */
 
+  const startBtn = document.querySelector(".start-btn") as HTMLButtonElement;
+  const gameStatus = document.querySelector(".action-box__status-value");
+  startBtn.onclick = () => {
+    const status = myWorld.game_status();
+
+    if (!status) {
+      myWorld.start_game();
+      play();
+    } else {
+      location.reload();
+    }
+  };
   const canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d");
 
@@ -91,22 +103,26 @@ export default async function app() {
     ctx?.stroke();
   }
 
+  function drawGameStatus() {
+    gameStatus!.textContent = myWorld.game_status_text();
+  }
+
   function paint() {
     drawWorld();
     drawSnake();
     drawReward();
+    drawGameStatus();
   }
 
-  function setUpdate() {
+  function play() {
     const framesPerSecond = 10;
     setTimeout(() => {
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
       myWorld.update();
       paint();
-      requestAnimationFrame(setUpdate);
+      requestAnimationFrame(play);
     }, 1000 / framesPerSecond);
   }
 
   paint();
-  setUpdate();
 }
