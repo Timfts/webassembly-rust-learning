@@ -1,4 +1,4 @@
-import init, { World, Direction } from "../wasm";
+import init, { World, Direction, GameStatus } from "../wasm";
 import { random } from "../externals";
 
 export default async function app() {
@@ -23,6 +23,7 @@ export default async function app() {
 
   const startBtn = document.querySelector(".start-btn") as HTMLButtonElement;
   const gameStatus = document.querySelector(".action-box__status-value");
+  const points = document.querySelector(".action-box__points-value");
   startBtn.onclick = () => {
     const status = myWorld.game_status();
 
@@ -92,19 +93,23 @@ export default async function app() {
       myWorld.snake_length()
     );
 
-    snakeCells.forEach((cellIdx, i) => {
-      const col = cellIdx % worldWidth;
-      const row = Math.floor(cellIdx / worldWidth);
+    snakeCells
+      .slice()
+      .reverse()
+      .forEach((cellIdx, i) => {
+        const col = cellIdx % worldWidth;
+        const row = Math.floor(cellIdx / worldWidth);
 
-      ctx!.fillStyle = i === 0 ? "#7878db" : "#000000";
-      ctx?.beginPath();
-      ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-    });
+        ctx!.fillStyle = i === snakeCells.length - 1 ? "#7878db" : "#000000";
+        ctx?.beginPath();
+        ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      });
     ctx?.stroke();
   }
 
   function drawGameStatus() {
     gameStatus!.textContent = myWorld.game_status_text();
+    points!.textContent = String(myWorld.points());
   }
 
   function paint() {
@@ -115,7 +120,13 @@ export default async function app() {
   }
 
   function play() {
-    const framesPerSecond = 10;
+    const status = myWorld.game_status();
+
+    if (status === GameStatus.Won || status === GameStatus.Lost) {
+      return;
+    }
+    
+    const framesPerSecond = 3;
     setTimeout(() => {
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
       myWorld.update();

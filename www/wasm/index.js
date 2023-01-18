@@ -76,10 +76,24 @@ export class World {
         return ret >>> 0;
     }
     /**
-    * @returns {number}
+    * @returns {number | undefined}
     */
     reward_cell() {
-        const ret = wasm.world_reward_cell(this.ptr);
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.world_reward_cell(retptr, this.ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            return r0 === 0 ? undefined : r1 >>> 0;
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+        }
+    }
+    /**
+    * @returns {number}
+    */
+    points() {
+        const ret = wasm.world_points(this.ptr);
         return ret >>> 0;
     }
     /**

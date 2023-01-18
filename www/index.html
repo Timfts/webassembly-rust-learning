@@ -22,11 +22,13 @@
         align-items: center;
       }
 
-      .action-box__status {
+      .action-box__status,
+      .action-box__points {
         display: flex;
       }
 
-      .action-box__status-title {
+      .action-box__status-title,
+      .action-box__points-title {
         margin-right: 10px;
         font-weight: bold;
       }
@@ -38,6 +40,10 @@
         <div class="action-box__status">
           <p class="action-box__status-title">Status</p>
           <p class="action-box__status-value">None</p>
+        </div>
+        <div class="action-box__points">
+          <p class="action-box__points-title">Points</p>
+          <p class="action-box__points-value">0</p>
         </div>
         <button class="start-btn">Start</button>
       </div>
