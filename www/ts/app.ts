@@ -74,12 +74,15 @@ export default async function app() {
 
   function drawReward() {
     const idx = myWorld.reward_cell();
-    const col = idx % worldWidth;
-    const row = Math.floor(idx / worldWidth);
-    ctx?.beginPath();
-    ctx!.fillStyle = "#FF0000";
-    ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-    ctx?.stroke();
+
+    if (idx) {
+      const col = idx % worldWidth;
+      const row = Math.floor(idx / worldWidth);
+      ctx?.beginPath();
+      ctx!.fillStyle = "#FF0000";
+      ctx?.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      ctx?.stroke();
+    }
 
     if (idx === 1000) {
       alert("you won");
@@ -125,7 +128,7 @@ export default async function app() {
     if (status === GameStatus.Won || status === GameStatus.Lost) {
       return;
     }
-    
+
     const framesPerSecond = 3;
     setTimeout(() => {
       ctx?.clearRect(0, 0, canvas.width, canvas.height);
