@@ -3,7 +3,6 @@ import { random } from "../externals";
 import { query } from "./utils";
 import canvas from "./canvas";
 
-
 const CELL_SIZE = 20;
 const WORLD_WIDTH = 5;
 const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
@@ -21,6 +20,7 @@ export default async function App() {
 
   // #region lifecycle
   (() => {
+    view.updateWorld();
     startBtn.addEventListener("click", prepareGameStart);
     document.addEventListener("keydown", handleKeydown);
   })();
@@ -44,7 +44,7 @@ export default async function App() {
     }
     setTimeout(() => {
       worldEngine.update();
-      view.updateWorld(worldEngine);
+      view.updateWorld();
       updateGameStatus();
       requestAnimationFrame(startGameLoop);
     }, 1000 / FRAMES_PER_SECOND);
