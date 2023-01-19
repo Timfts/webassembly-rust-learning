@@ -4,10 +4,8 @@ import { query } from "./utils";
 import canvas from "./canvas";
 
 
-
-
 const CELL_SIZE = 20;
-const WORLD_WIDTH = 3;
+const WORLD_WIDTH = 5;
 const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
 const FRAMES_PER_SECOND = 3;
 
@@ -30,7 +28,7 @@ export default async function App() {
 
   // #region methods
   function prepareGameStart() {
-    const gameIsStopped = !worldEngine.game_status();
+    const gameIsStopped = !worldEngine.get_game_status();
     if (gameIsStopped) {
       worldEngine.start_game();
       startGameLoop();
@@ -40,7 +38,7 @@ export default async function App() {
   }
 
   function startGameLoop() {
-    const status = worldEngine.game_status();
+    const status = worldEngine.get_game_status();
     if (status === GameStatus.Won || status === GameStatus.Lost) {
       return;
     }
@@ -70,8 +68,8 @@ export default async function App() {
   }
 
   function updateGameStatus() {
-    gameStatus!.textContent = worldEngine.game_status_text();
-    points!.textContent = String(worldEngine.points());
+    gameStatus!.textContent = worldEngine.get_game_status_text();
+    points!.textContent = String(worldEngine.get_points());
   }
 
   // #endregion

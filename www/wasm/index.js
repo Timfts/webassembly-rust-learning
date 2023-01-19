@@ -71,17 +71,17 @@ export class World {
     /**
     * @returns {number}
     */
-    width() {
-        const ret = wasm.world_width(this.ptr);
+    get_width() {
+        const ret = wasm.world_get_width(this.ptr);
         return ret >>> 0;
     }
     /**
     * @returns {number | undefined}
     */
-    reward_cell() {
+    get_reward_cell() {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.world_reward_cell(retptr, this.ptr);
+            wasm.world_get_reward_cell(retptr, this.ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             return r0 === 0 ? undefined : r1 >>> 0;
@@ -92,15 +92,15 @@ export class World {
     /**
     * @returns {number}
     */
-    points() {
-        const ret = wasm.world_points(this.ptr);
+    get_points() {
+        const ret = wasm.world_get_points(this.ptr);
         return ret >>> 0;
     }
     /**
     * @returns {number}
     */
-    snake_head_index() {
-        const ret = wasm.world_snake_head_index(this.ptr);
+    get_snake_head_index() {
+        const ret = wasm.world_get_snake_head_index(this.ptr);
         return ret >>> 0;
     }
     /**
@@ -112,15 +112,15 @@ export class World {
     /**
     * @returns {number}
     */
-    snake_cells() {
-        const ret = wasm.world_snake_cells(this.ptr);
+    get_snake_cells() {
+        const ret = wasm.world_get_snake_cells(this.ptr);
         return ret;
     }
     /**
     * @returns {number}
     */
-    snake_length() {
-        const ret = wasm.world_snake_length(this.ptr);
+    get_snake_length() {
+        const ret = wasm.world_get_snake_length(this.ptr);
         return ret >>> 0;
     }
     /**
@@ -136,17 +136,17 @@ export class World {
     /**
     * @returns {number | undefined}
     */
-    game_status() {
-        const ret = wasm.world_game_status(this.ptr);
+    get_game_status() {
+        const ret = wasm.world_get_game_status(this.ptr);
         return ret === 3 ? undefined : ret;
     }
     /**
     * @returns {string}
     */
-    game_status_text() {
+    get_game_status_text() {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.world_game_status_text(retptr, this.ptr);
+            wasm.world_get_game_status_text(retptr, this.ptr);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
             var r1 = getInt32Memory0()[retptr / 4 + 1];
             return getStringFromWasm0(r0, r1);

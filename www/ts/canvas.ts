@@ -14,7 +14,7 @@ export default function canvas(
   let currentWorldState = world;
   const canvasElement = query("#game-canvas") as HTMLCanvasElement;
   const ctx = canvasElement.getContext("2d");
-  const worldWidth = currentWorldState.width();
+  const worldWidth = currentWorldState.get_width();
   // #endregion
 
   // #region lifecicle
@@ -53,8 +53,8 @@ export default function canvas(
   function _drawSnake() {
     const snakeCells = new Uint32Array(
       wasm.memory.buffer,
-      currentWorldState.snake_cells(),
-      currentWorldState.snake_length()
+      currentWorldState.get_snake_cells(),
+      currentWorldState.get_snake_length()
     );
 
     snakeCells
@@ -72,7 +72,7 @@ export default function canvas(
   }
 
   function _drawReward() {
-    const idx = currentWorldState.reward_cell();
+    const idx = currentWorldState.get_reward_cell();
     if (idx) {
       const col = idx % worldWidth;
       const row = Math.floor(idx / worldWidth);

@@ -62,19 +62,19 @@ impl World {
         return Some(reward_cell);
     }
 
-    pub fn width(&self) -> usize {
+    pub fn get_width(&self) -> usize {
         self.width
     }
 
-    pub fn reward_cell(&self) -> Option<usize> {
+    pub fn get_reward_cell(&self) -> Option<usize> {
         self.reward_cell
     }
 
-    pub fn points(&self) -> usize {
+    pub fn get_points(&self) -> usize {
         self.points
     }
 
-    pub fn snake_head_index(&self) -> usize {
+    pub fn get_snake_head_index(&self) -> usize {
         let first_cell = &self.snake.body[0];
         let first_cell_index = first_cell.0;
         return first_cell_index;
@@ -96,11 +96,11 @@ impl World {
     //     self.snake.body
     // }
 
-    pub fn snake_cells(&self) -> *const SnakeCell {
+    pub fn get_snake_cells(&self) -> *const SnakeCell {
         self.snake.body.as_ptr()
     }
 
-    pub fn snake_length(&self) -> usize {
+    pub fn get_snake_length(&self) -> usize {
         self.snake.body.len()
     }
 
@@ -125,12 +125,12 @@ impl World {
                     self.snake.body[i] = SnakeCell(temp[i - 1].0)
                 }
 
-                if self.snake.body[1..self.snake_length()].contains(&self.snake.body[0]){
+                if self.snake.body[1..self.get_snake_length()].contains(&self.snake.body[0]){
                     self.status = Some(GameStatus::Lost);
                 }
 
-                if self.reward_cell == Some(self.snake_head_index()) {
-                    if (self.snake_length() < self.size) {
+                if self.reward_cell == Some(self.get_snake_head_index()) {
+                    if (self.get_snake_length() < self.size) {
                         self.points += 1;
                         self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body)
                     } else {
@@ -148,11 +148,11 @@ impl World {
         self.status = Some(GameStatus::Played);
     }
 
-    pub fn game_status(&self) -> Option<GameStatus> {
+    pub fn get_game_status(&self) -> Option<GameStatus> {
         self.status
     }
 
-    pub fn game_status_text(&self) -> String {
+    pub fn get_game_status_text(&self) -> String {
         match self.status {
             Some(GameStatus::Won) => String::from("You have won!!"),
             Some(GameStatus::Lost) => String::from("You have lost!!"),
@@ -162,7 +162,7 @@ impl World {
     }
 
     fn gen_next_snake_cell(&self, direction: &Direction) -> SnakeCell {
-        let snake_idx = self.snake_head_index();
+        let snake_idx = self.get_snake_head_index();
         let row = snake_idx / self.width;
 
         return match direction {
