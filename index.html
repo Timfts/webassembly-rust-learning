@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Webassembly game</title>
+    <style>
+      .container {
+        inset: 0;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .action-box {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .action-box__status,
+      .action-box__points {
+        display: flex;
+      }
+
+      .action-box__status-title,
+      .action-box__points-title {
+        margin-right: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script type="module" crossorigin src="/webassembly-rust-learning/assets/index.1ec8e8a7.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="action-box">
+        <div class="action-box__status">
+          <p class="action-box__status-title">Status</p>
+          <p class="action-box__status-value">None</p>
+        </div>
+        <div class="action-box__points">
+          <p class="action-box__points-title">Points</p>
+          <p class="action-box__points-value">0</p>
+        </div>
+        <button class="start-btn">Start</button>
+      </div>
+      <canvas id="game-canvas"></canvas>
+    </div>
+    
+  </body>
+</html>
