@@ -8,9 +8,8 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen(module = "/www/externals.js")]
 extern "C" {
-    fn log_something();
-    fn now() -> usize;
     fn random(max: usize) -> usize;
+    fn log(value: String);
 }
 
 #[wasm_bindgen]
@@ -126,11 +125,12 @@ impl World {
                 }
 
                 if self.snake.body[1..self.get_snake_length()].contains(&self.snake.body[0]){
+                    log(String::from("You lost"));
                     self.status = Some(GameStatus::Lost);
                 }
 
                 if self.reward_cell == Some(self.get_snake_head_index()) {
-                    if (self.get_snake_length() < self.size) {
+                    if self.get_snake_length() < self.size {
                         self.points += 1;
                         self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body)
                     } else {

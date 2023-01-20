@@ -6,9 +6,9 @@
   "scripts": {
     "remove-unused-generated-files": "rm www/wasm/.gitignore & rm www/wasm/package.json & rm www/wasm/README.md",
     "compile-rust": "wasm-pack build --target web --out-dir www/wasm --out-name index",
-    "build-wasm":"yarn compile-rust && yarn remove-unused-generated-files",
-    "watch-rust":"nodemon --watch lib -e rs --exec yarn build-wasm",
-    "dev": "vite",
+    "build-wasm": "yarn compile-rust && yarn remove-unused-generated-files",
+    "watch-rust": "nodemon --watch lib -e rs --exec yarn build-wasm",
+    "dev": "vite --host",
     "dev:wasm": "yarn watch-rust & yarn dev",
     "build": "vite build --emptyOutDir",
     "serve": "vite preview"
@@ -26,5 +26,8 @@
   "devDependencies": {
     "nodemon": "^2.0.20",
     "vite": "^3.2.2"
+  },
+  "dependencies": {
+    "sass": "^1.57.1"
   }
 }

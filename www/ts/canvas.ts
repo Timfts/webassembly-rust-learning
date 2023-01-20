@@ -29,7 +29,17 @@ export default function canvas(
     canvasElement.width = worldWidth * cellSize;
   }
 
+ 
+
+  function _paint() {
+    _drawGrid();
+    _drawSnake();
+    _drawReward();
+  }
+
   function _drawGrid() {
+    ctx!.lineWidth = 3
+    ctx!.strokeStyle = "#fff";
     ctx?.beginPath();
     for (let x = 0; x <= worldWidth; x++) {
       ctx?.moveTo(cellSize * x, 0);
@@ -41,12 +51,6 @@ export default function canvas(
       ctx?.lineTo(worldWidth * cellSize, cellSize * y);
     }
     ctx?.stroke();
-  }
-
-  function _paint() {
-    _drawGrid();
-    _drawSnake();
-    _drawReward();
   }
 
   function _drawSnake() {
@@ -63,7 +67,7 @@ export default function canvas(
         const col = cellIdx % worldWidth;
         const row = Math.floor(cellIdx / worldWidth);
 
-        ctx!.fillStyle = i === snakeCells.length - 1 ? "#7878db" : "#000000";
+        ctx!.fillStyle = i === snakeCells.length - 1 ? "#0fd945" : "#ffffff";
         ctx?.beginPath();
         ctx?.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
       });

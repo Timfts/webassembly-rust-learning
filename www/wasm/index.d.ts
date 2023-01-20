@@ -86,8 +86,8 @@ export interface InitOutput {
   readonly world_start_game: (a: number) => void;
   readonly world_get_game_status: (a: number) => number;
   readonly world_get_game_status_text: (a: number, b: number) => void;
-  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_free: (a: number, b: number) => void;
+  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
 }
 
 export type SyncInitInput = BufferSource | WebAssembly.Module;

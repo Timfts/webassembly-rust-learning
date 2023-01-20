@@ -3,25 +3,28 @@ import { random } from "../externals";
 import { query } from "./utils";
 import canvas from "./canvas";
 
-const CELL_SIZE = 20;
-const WORLD_WIDTH = 5;
+const CELL_SIZE = 30;
+const WORLD_WIDTH = 10;
 const SNAKE_SPAWN_IDX = random(WORLD_WIDTH * WORLD_WIDTH);
 const FRAMES_PER_SECOND = 3;
 
 export default async function App() {
   // #region properties
   const wasm = await init();
-  const gameStatus = query(".action-box__status-value");
-  const points = query(".action-box__points-value");
-  const startBtn = query(".start-btn") as HTMLButtonElement;
+  const gameStatus = query("#status-value");
+  const points = query("#points-value");
+  const startBtn = query(".action-btn") as HTMLButtonElement;
   const worldEngine = World.new(WORLD_WIDTH, SNAKE_SPAWN_IDX);
   const view = canvas(worldEngine, { cellSize: CELL_SIZE, wasm });
+  const mobileControl = query(".mobile-control");
+
   // #endregion
 
   // #region lifecycle
   (() => {
     view.updateWorld();
     startBtn.addEventListener("click", prepareGameStart);
+    mobileControl?.addEventListener("click", handleMobileControl);
     document.addEventListener("keydown", handleKeydown);
   })();
   // #endregion
@@ -51,7 +54,20 @@ export default async function App() {
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    switch (e.code) {
+    handleChangeDirection(e.code);
+  }
+
+  function handleMobileControl(e: Event) {
+    const target = e.target as HTMLElement;
+    const clickedButton = target.tagName === "BUTTON";
+    if (clickedButton) {
+      const buttonKey = target?.dataset?.ctrl;
+      handleChangeDirection(buttonKey);
+    }
+  }
+
+  function handleChangeDirection(directionKey: string) {
+    switch (directionKey) {
       case "ArrowUp":
         worldEngine.change_snake_direction(Direction.Up);
         break;

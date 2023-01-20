@@ -1,4 +1,4 @@
-import { random } from './snippets/snake-core-c500c7cb77b8028e/www/externals.js';
+import { random, log } from './snippets/snake-core-c500c7cb77b8028e/www/externals.js';
 
 let wasm;
 
@@ -194,6 +194,13 @@ function getImports() {
     imports.wbg.__wbg_random_06ff7eb101bdbf39 = function(arg0) {
         const ret = random(arg0 >>> 0);
         return ret;
+    };
+    imports.wbg.__wbg_log_0f208c11010187ce = function(arg0, arg1) {
+        try {
+            log(getStringFromWasm0(arg0, arg1));
+        } finally {
+            wasm.__wbindgen_free(arg0, arg1);
+        }
     };
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));

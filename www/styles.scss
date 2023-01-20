@@ -1,0 +1,142 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Press Start 2P", cursive;
+  position: relative;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  filter: blur(0.05em) hue-rotate(0);
+  background-color: black;
+  color: white;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  padding-top: 5vh;
+
+  @media (min-width: 600px) {
+    padding-top: 0;
+    justify-content: center;
+  }
+}
+
+.action-box {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+}
+
+.action-box__info {
+  display: flex;
+  margin-bottom: 10px;
+
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+}
+
+.action-box__info-title {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.action-btn {
+  background-color: transparent;
+  font-family: inherit;
+  outline: none;
+  border: 3px solid #0fd945;
+  height: 40px;
+  color: #0fd945;
+  cursor: pointer;
+}
+
+.mobile-control {
+  width: 200px;
+  height: 200px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  @media (min-width: 600px) {
+    display: none;
+  }
+
+  &__btn {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    background-color: transparent;
+    border: 3px solid #fff;
+    outline: none;
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+
+    &::after {
+      color: white;
+      content: "\003e";
+      display: block;
+      position: absolute;
+      font-size: 45px;
+      top: 50%;
+      left: 50%;
+    }
+
+    &--top,
+    &--bottom {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--right,
+    &--left {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--top {
+      top: 0;
+      &::after {
+        transform: translate(-50%, -50%) rotate(-90deg);
+      }
+    }
+
+    &--right {
+      right: 0;
+
+      &::after {
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &--bottom {
+      bottom: 0;
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    &--left {
+      left: 0;
+      &::after {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
+}
