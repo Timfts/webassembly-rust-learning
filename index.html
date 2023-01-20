@@ -5,50 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Webassembly game</title>
-    <style>
-      .container {
-        inset: 0;
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      }
-
-      .action-box {
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .action-box__status,
-      .action-box__points {
-        display: flex;
-      }
-
-      .action-box__status-title,
-      .action-box__points-title {
-        margin-right: 10px;
-        font-weight: bold;
-      }
-    </style>
-    <script type="module" crossorigin src="/webassembly-rust-learning/assets/index.aa608bdc.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    
+    <script type="module" crossorigin src="/webassembly-rust-learning/assets/index.835dbec2.js"></script>
+    <link rel="stylesheet" href="/webassembly-rust-learning/assets/index.346ada4e.css">
   </head>
   <body>
     <div class="container">
       <div class="action-box">
-        <div class="action-box__status">
-          <p class="action-box__status-title">Status</p>
-          <p class="action-box__status-value">None</p>
+        <div class="action-box__info">
+          <p class="action-box__info-title">Status:</p>
+          <p class="action-box__info-value" id="status-value">None</p>
         </div>
-        <div class="action-box__points">
-          <p class="action-box__points-title">Points</p>
-          <p class="action-box__points-value">0</p>
+        <div class="action-box__info">
+          <p class="action-box__info-title">Points:</p>
+          <p class="action-box__info-value" id="points-value">0</p>
         </div>
-        <button class="start-btn">Start</button>
+        <button class="action-btn">Start</button>
       </div>
       <canvas id="game-canvas"></canvas>
+
+      <div class="mobile-control">
+        <button data-ctrl="ArrowUp" class="mobile-control__btn mobile-control__btn--top"></button>
+        <button data-ctrl="ArrowRight" class="mobile-control__btn mobile-control__btn--right"></button>
+        <button data-ctrl="ArrowDown" class="mobile-control__btn mobile-control__btn--bottom"></button>
+        <button data-ctrl="ArrowLeft" class="mobile-control__btn mobile-control__btn--left"></button>
+      </div>
     </div>
     
   </body>
